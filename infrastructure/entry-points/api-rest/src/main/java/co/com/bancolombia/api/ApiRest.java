@@ -2,17 +2,16 @@ package co.com.bancolombia.api;
 
 import co.com.bancolombia.api.transfer.OpCommand;
 import co.com.bancolombia.usecase.factorial.MathematicsService;
-import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ApiRest implements CalculadoraSwagger{
+public class ApiRest implements CalculadoraSwagger {
 
     private final MathematicsService mathematicsService;
 
@@ -20,8 +19,16 @@ public class ApiRest implements CalculadoraSwagger{
         this.mathematicsService = mathematicsService;
     }
 
+    /**
+     * @param nombre
+     * @return
+     */
     @Override
-    public ResponseEntity<Integer> performOperation(@RequestBody OpCommand nombre) {
+    public ResponseEntity<Integer> performOperation(@RequestBody final OpCommand nombre) {
+
+        HttpHeaders h = new HttpHeaders();
+        h.get("Content-Type");
+        h.get(HttpHeaders.CONTENT_TYPE);
         return ResponseEntity.ok(mathematicsService.factorialOf(nombre.getNombre()));
     }
 
