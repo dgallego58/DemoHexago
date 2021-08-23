@@ -1,0 +1,23 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: '2.4.2'
+	implementation project(':api-rest')
+	implementation project(':calculadora-adapter')
+    implementation project(':model')
+    implementation project(':usecase')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+}
+
+task explodedJar(type: Copy) {
+    with jar
+    into "${buildDir}/exploded"
+}
+
+configurations{
+	compile.exclude group: "org.springframework.boot", module:"spring-boot-starter-tomcat"
+}
